@@ -1,0 +1,48 @@
+// Gradle plugins
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = 'sponge'
+            url = 'http://repo.spongepowered.org/maven'
+        }
+        maven {
+            name = 'eclipse-staging'
+            url = 'https://repo.eclipse.org/content/repositories/eclipse-staging'
+        }
+    }
+
+    dependencies {
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.11.0'
+        classpath 'org.spongepowered:event-impl-gen:1.1.0'
+        classpath 'org.spongepowered:spongegradle:0.5.1'
+    }
+}
+
+group 'org.spongepowered'
+version '0.1-SNAPSHOT'
+
+apply plugin: 'org.spongepowered.plugin'
+apply plugin: 'event-impl-gen'
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:4.+'
+
+    // Event generation
+    compile 'org.ow2.asm:asm:5.0.3'
+    compile 'org.spongepowered:event-gen-core:1.1.0'
+}
+
+genEventImpl {
+    includeSrc = [
+            "src/main/java/org/spongepowered/api/event",
+            'src/main/java/org/spongepowered/test/event',
+    ]
+    excludeSrc = []
+    outputDir = 'src/main/java/'
+    outputFactory = 'org.spongepowered.test.TestEventFactory'
+    eventImplCreateMethod = 'org.spongepowered.api.event.SpongeEventFactoryUtils.createEventImpl'
+    sortPriorityPrefix = 'original'
+    groupingPrefixes = ['from': 'to']
+    validateCode = true
+}
