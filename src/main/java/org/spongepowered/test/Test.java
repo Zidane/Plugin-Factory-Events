@@ -2,6 +2,7 @@ package org.spongepowered.test;
 
 import com.flowpowered.math.vector.Vector3i;
 import org.slf4j.Logger;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.plugin.Plugin;
@@ -17,7 +18,7 @@ public class Test {
     @Listener
     public void onGamePreInit(GamePreInitializationEvent event) {
         this.logger.info("About to call test event!");
-        TestEventFactory.createTestEvent(new Vector3i(0, 0, 0), 1);
+        Sponge.getEventManager().post(TestEventFactory.createTestEvent(new Vector3i(0, 0, 0), 1));
     }
 
     @Listener
