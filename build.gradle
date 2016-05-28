@@ -19,11 +19,23 @@ buildscript {
     }
 }
 
+defaultTasks 'build'
 group 'org.spongepowered'
-version '0.1-SNAPSHOT'
+version '0.1'
 
 apply plugin: 'org.spongepowered.plugin'
 apply plugin: 'event-impl-gen'
+
+sponge {
+    plugin {
+        meta {
+            id = "test"
+            name = 'Test'
+            version = '0.1'
+            description = 'This is a plugin that shows off custom plugin events with ASM.'
+        }
+    }
+}
 
 dependencies {
     compile 'org.spongepowered:spongeapi:4.+'
@@ -35,7 +47,6 @@ dependencies {
 
 genEventImpl {
     includeSrc = [
-            "src/main/java/org/spongepowered/api/event",
             'src/main/java/org/spongepowered/test/event',
     ]
     excludeSrc = []

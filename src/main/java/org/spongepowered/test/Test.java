@@ -16,7 +16,7 @@ public class Test {
     @Inject Logger logger;
 
     @Listener
-    public void onGamePreInit(GamePreInitializationEvent event) {
+    public void onGamePreInitialization(GamePreInitializationEvent event) {
         this.logger.info("About to call test event!");
         Sponge.getEventManager().post(TestEventFactory.createTestEvent(new Vector3i(0, 0, 0), 1));
     }
